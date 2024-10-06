@@ -16,7 +16,6 @@ st.title('Imports and Exports Dashboard')
 transaction_counts = df_sample['Import_Export'].value_counts()
 
 # Plot the pie chart
-st.subheader('Percentage of Import and Export Transactions')
 fig1, ax1 = plt.subplots()
 ax1.pie(transaction_counts, labels=transaction_counts.index, autopct='%1.1f%%', startangle=90, colors=['purple', 'pink'])
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
@@ -25,7 +24,6 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 category_transaction_counts = df_sample.groupby(['Category', 'Import_Export']).size().unstack()
 
 # Plot a stacked bar chart
-st.subheader('Transactions by Category (Stacked by Import/Export)')
 fig2, ax2 = plt.subplots()
 category_transaction_counts.plot(kind='bar', stacked=True, ax=ax2, color=['purple', 'pink'])
 ax2.set_title('Transactions by Category (Stacked by Import/Export)')
@@ -37,7 +35,6 @@ ax2.legend(title='Transaction Type')
 payment_mode_counts = df_sample['Payment_Terms'].value_counts()
 
 # Plot a horizontal bar chart
-st.subheader('Most Preferred Payment Modes')
 fig3, ax3 = plt.subplots()
 payment_mode_counts.plot(kind='barh', ax=ax3)
 ax3.set_title('Most Preferred Payment Modes')
@@ -54,7 +51,6 @@ df_sample['Month'] = df_sample['Date'].dt.month
 monthly_avg_value = df_sample.groupby(['Month', 'Import_Export'])['Value'].mean().unstack()
 
 # Plot the line graph
-st.subheader('Average Value of Transactions by Month')
 fig4, ax4 = plt.subplots()
 
 # Plot each import and export line
@@ -67,21 +63,25 @@ ax4.set_ylabel('Average Transaction Value')
 ax4.grid(True)
 ax4.legend(title='Transaction Type')
 
-# Arrange 2 graphs per row
+# Arrange 2 graphs per row and align subheaders
 col1, col2 = st.columns(2)
 
 # First row: Pie chart and Stacked bar chart
 with col1:
+    st.subheader('Percentage of Import and Export Transactions')
     st.pyplot(fig1)
 
 with col2:
+    st.subheader('Transactions by Category (Stacked by Import/Export)')
     st.pyplot(fig2)
 
 # Second row: Bar chart of Payment Modes and Line graph of Average Transaction Value
 col3, col4 = st.columns(2)
 
 with col3:
+    st.subheader('Most Preferred Payment Modes')
     st.pyplot(fig3)
 
 with col4:
+    st.subheader('Average Value of Transactions by Month')
     st.pyplot(fig4)
