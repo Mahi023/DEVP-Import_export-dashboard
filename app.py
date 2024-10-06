@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 # Load the dataset
-df = pd.read_csv('C:\\Users\\Hp\\Downloads\\Imports_Exports_Dataset (1).csv')
+df = pd.read_csv(r'Imports_Exports_Dataset (1).csv')
 
 # Sample the dataset
 df_sample = df.sample(n=3001, random_state=55023)
