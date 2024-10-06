@@ -20,7 +20,12 @@ st.subheader('Percentage of Import and Export Transactions')
 fig1, ax1 = plt.subplots()
 ax1.pie(transaction_counts, labels=transaction_counts.index, autopct='%1.1f%%', startangle=90, colors=['purple', 'pink'])
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-st.pyplot(fig1)
+
+# Create columns for layout
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.pyplot(fig1)
 
 # Group the data by Category and Import_Export, then count the number of transactions
 category_transaction_counts = df_sample.groupby(['Category', 'Import_Export']).size().unstack()
@@ -33,7 +38,9 @@ ax2.set_title('Transactions by Category (Stacked by Import/Export)')
 ax2.set_xlabel('Category')
 ax2.set_ylabel('Number of Transactions')
 ax2.legend(title='Transaction Type')
-st.pyplot(fig2)
+
+with col2:
+    st.pyplot(fig2)
 
 # Count the occurrences of each payment mode
 payment_mode_counts = df_sample['Payment_Terms'].value_counts()
@@ -45,7 +52,9 @@ payment_mode_counts.plot(kind='barh', ax=ax3)
 ax3.set_title('Most Preferred Payment Modes')
 ax3.set_xlabel('Number of Transactions')
 ax3.set_ylabel('Payment Mode')
-st.pyplot(fig3)
+
+with col3:
+    st.pyplot(fig3)
 
 # Convert 'Date' column to datetime format
 df_sample['Date'] = pd.to_datetime(df_sample['Date'], format='%d-%m-%Y')
@@ -68,5 +77,7 @@ ax4.set_title('Average Value of Transactions by Month')
 ax4.set_xlabel('Month')
 ax4.set_ylabel('Average Transaction Value')
 ax4.grid(True)
-ax4.legend(title='Transaction Type')  # Add legend to distinguish between imports and exports
+ax4.legend(title='Transaction Type')
+
+# Display the line graph in a new row
 st.pyplot(fig4)
